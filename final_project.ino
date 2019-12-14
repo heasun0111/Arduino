@@ -36,6 +36,19 @@ void setup() {
 
   pinMode(led_Y, OUTPUT);
 }
+// 전진
+void motor(Servo sL, Servo sR, int rpm) {
+  sL.writeMicroseconds(1500 + rpm);
+  sR.writeMicroseconds(1500 - rpm);
+}
+
+// 전진 시에 딜레이
+void motor_d(Servo sL, Servo sR, int rpm, int t) {
+  sL.writeMicroseconds(1500 + rpm);
+  sR.writeMicroseconds(1500 - rpm);
+  delay(t);
+}
+
 
 void loop() {
  
