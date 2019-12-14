@@ -48,6 +48,53 @@ void motor_d(Servo sL, Servo sR, int rpm, int t) {
   sR.writeMicroseconds(1500 - rpm);
   delay(t);
 }
+// 회전(라인을 잘 따라가기 위한)
+void turn(int flag, Servo sL, Servo sR, int rpm) {
+  
+  // flag가 2의 배수이면 오른쪽으로 회전
+    if ((flag % 2) == 0) {
+    sL.writeMicroseconds(1500 + rpm);
+    sR.writeMicroseconds(1500 + rpm);
+  } // flag가 2의 배수가 아니면 왼쪽으로 회전
+  else {
+    sL.writeMicroseconds(1500 - rpm);
+    sR.writeMicroseconds(1500 - rpm);
+  }
+}
+
+// 회전(stateLL이 감지될 때까지)
+void turn_(int flag, Servo sL, Servo sR, int rpm){
+  
+  // flag가 2의 배수이면 좌회전
+  if ((flag % 2) == 0) {
+    while(1) {
+      int stateLL = digitalRead(sensorLL);
+      sL.writeMicroseconds(1500 - rpm);
+      sR.writeMicroseconds(1500 - rpm);
+      // 좌회전하다가 stateLL이 인식되면 멈춤
+      if (stateLL) break;
+    }
+    sL.writeMicroseconds(1500 - rpm);
+    sR.writeMicroseconds(1500 - rpm);
+    delay(300);
+  }
+  
+  // flag가 2의 배수가 아니면 우회전
+  else {
+    while(1) {
+      int stateRR = digitalRead(sensorRR);
+      sL.writeMicroseconds(1500 + rpm);
+      sR.writeMicroseconds(1500 + rpm);
+      
+      // 우회전하다가 stateRR이 인식되면 멈춤
+      if (stateRR) break;
+    }
+    sL.writeMicroseconds(1500 + rpm);
+    sR.writeMicroseconds(1500 + rpm);
+    delay(300);
+  }
+}
+
 
 
 void loop() {
