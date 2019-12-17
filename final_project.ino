@@ -95,6 +95,52 @@ void turn_(int flag, Servo sL, Servo sR, int rpm){
   }
 }
 
+// 모든 적외선 센서가 감지 안 될 때까지 전진
+void go(Servo sL, Servo sR) {
+  while(1) {
+    int stateL = digitalRead(sensorL);
+    int stateR = digitalRead(sensorR);
+    int stateLL = digitalRead(sensorLL);
+    int stateRR = digitalRead(sensorRR);
+    int stateF = digitalRead(sensorF);
+    int stateM = analogRead(sensorM);
+
+    int x=0;
+    
+    // 기기를 오른쪽 방향으로 가는 지 위쪽 방향으로 가는 지 확인
+    if (stateLL) flag = 1; // 오른쪽 방향
+    if (stateRR) flag = 2; // 왼쪽 방향
+    if (stateM < 100){
+      digitalWrite(led_Y, HIGH);
+      x=1;
+    } else {
+      digitalWrite(led_Y, LOW);
+      x=0;
+    }
+    
+    if (stateF) motor(sL, sR, 50); // stateF가 감지되면 앞으로 전진
+    
+    // stateF가 감지가 안 되었을 경우
+    else if (stateL) { // stateL이 감지되면 왼쪽으로 회전
+      turn(1, sL, sR, 100);  
+       
+    } else if (stateR) { // stateR이 감지되면 오른쪽 회전
+      turn(2, sL, sR, 100);
+    }
+    
+    // 적외선 센서 전체가 감지가 안 되면 빠져나옴
+    if (!stateLL && !stateRR && !stateL && !stateF && !stateR){
+      if(x==1) countOb++;
+      if(countOb==3) {
+        while(1) motor(sL,sR,0);
+      }
+      break;
+    }
+  }
+  motor_d(sL, sR, 50, 400);
+}
+
+
 
 
 void loop() {
