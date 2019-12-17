@@ -139,7 +139,37 @@ void go(Servo sL, Servo sR) {
   }
   motor_d(sL, sR, 50, 400);
 }
+// 왼쪽으로 회전하기 위해서 전진하는 함수
+void goL(Servo sL, Servo sR) {
+  while(1) {
+    int stateL = digitalRead(sensorL);
+    int stateR = digitalRead(sensorR);
+    int stateLL = digitalRead(sensorLL);
+    int stateRR = digitalRead(sensorRR);
+    int stateF = digitalRead(sensorF);
+    int stateM = analogRead(sensorM);
 
+    if (stateM < 100) {
+      digitalWrite(led_Y, HIGH);
+    } else {
+      digitalWrite(led_Y, LOW);
+      
+    }
+    
+    if (stateF) motor(sL, sR, 50);
+    
+    // 움직이는 도중 라인 밖으로 나갈 경우
+    else if(stateL) {
+      turn(1, sL, sR, 30);  
+    } else if(stateR) {
+      turn(2, sL, sR, 30);
+    }
+    
+    // 1칸 갔을 때 멈춤
+    if (stateF && stateL && stateLL) break;
+  }
+  motor_d(sL, sR, 50, 400);
+}
 
 
 
