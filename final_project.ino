@@ -171,6 +171,29 @@ void goL(Servo sL, Servo sR) {
   motor_d(sL, sR, 50, 400);
 }
 
+// 오른쪽으로 회전하기 위해서 전진하는 함수
+void goR(Servo sL, Servo sR) {
+  while(1) {
+    int stateL = digitalRead(sensorL);
+    int stateR = digitalRead(sensorR);
+    int stateLL = digitalRead(sensorLL);
+    int stateRR = digitalRead(sensorRR);
+    int stateF = digitalRead(sensorF);
+    int stateM = analogRead(sensorM);
+
+    if (stateM < 100) {
+      digitalWrite(led_Y, HIGH);
+    } else {
+      digitalWrite(led_Y, LOW);
+      
+    }
+    
+    if (stateF) motor(sL, sR, 50);
+    
+  motor_d(sL, sR, 50, 400);
+} 
+
+
 
 
 void loop() {
