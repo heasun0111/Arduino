@@ -190,6 +190,17 @@ void goR(Servo sL, Servo sR) {
     
     if (stateF) motor(sL, sR, 50);
     
+    // 움직이는 도중 라인 밖으로 나갈 경우
+    else if (stateL) {
+      turn(1, sL, sR, 30);  
+    } else if (stateR) {
+      turn(2, sL, sR, 30);
+    }
+    
+    // 1칸 갔을 때 멈춤
+    if (stateF && stateR && stateRR) break;
+  }
+    
   motor_d(sL, sR, 50, 400);
 } 
 
