@@ -208,5 +208,13 @@ void goR(Servo sL, Servo sR) {
 
 
 void loop() {
+    //시작 전 적외선 센서 받기
+  int stateLL = digitalRead(sensorLL);
+  int stateRR = digitalRead(sensorRR);
+  int stateR = digitalRead(sensorR);
+  int stateL = digitalRead(sensorL);  
+  int count = 1; // count로 왕복 움직임 횟수를 제한
+  
+  go(sL, sR);
  
 }
