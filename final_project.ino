@@ -216,5 +216,27 @@ void loop() {
   int count = 1; // count로 왕복 움직임 횟수를 제한
   
   go(sL, sR);
+  
+  
+    // 오른쪽 방향으로 출발한 경우
+    if (flag == 1) {
+    while (count < 4) {
+      //go(sL, sR);
+      turn_(2, sL, sR, 50);
+      goL(sL,sR);
+      turn_(2, sL, sR, 50);
+      go(sL, sR);
+      turn_(1, sL, sR, 50);
+      goR(sL, sR);
+      turn_(1, sL, sR, 50);
+      go(sL, sR);
+    
+      count++;
+    }
+
+    turn_(2, sL, sR, 50);
+    go(sL, sR);
+
+  }
  
 }
