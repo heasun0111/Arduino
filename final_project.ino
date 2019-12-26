@@ -236,6 +236,19 @@ void loop() {
 
     turn_(2, sL, sR, 50);
     go(sL, sR);
+      
+    while (count < 7) {      
+      turn_(2, sL, sR, 50);
+      goL(sL, sR);
+      turn_(2, sL, sR, 50);
+      go(sL, sR);
+      turn_(1, sL, sR, 50);
+      goR(sL, sR);
+      turn_(1, sL, sR, 50);
+      go(sL, sR);
+    
+      count++;
+    }
 
   }
  
