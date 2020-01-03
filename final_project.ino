@@ -249,6 +249,22 @@ void loop() {
     
       count++;
     }
+      else if (flag == 2) { // 위쪽 방향을 출발한 경우
+    while (count < 4) {
+      //go(sL, sR);      
+      turn_(1, sL, sR, 50);
+      goR(sL, sR);
+      turn_(1, sL, sR, 50);
+      go(sL, sR);
+      turn_(2, sL, sR, 50);
+      goL(sL, sR);
+      turn_(2, sL, sR, 50);
+      go(sL, sR);
+    
+      count++;
+    }
+        
+   }
 
   }
  
