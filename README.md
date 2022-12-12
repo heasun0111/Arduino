@@ -10,6 +10,8 @@
 
 #### 실제 사진
 
+![img1](./img/line_tracer_1.png)
+![img2](./img/line_tracer_2.png)
 
 </br>
 
@@ -21,6 +23,8 @@
 
 #### 실제 사진
 
+![img3](./img/clock_1.png)
+![img4](./img/clock_2.png)
 </br>
 
 #### 실패 요인
